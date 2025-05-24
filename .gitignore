@@ -4,8 +4,8 @@
 # Ignore Ansible secrets/vars if needed
 ansible/vars/gke-vars.yml
 
-# Ignore Terraform state files
-terraform/.terraform/
+# Ignore Terraform state files and cache
+**/.terraform/
 terraform/terraform.tfstate
 terraform/terraform.tfstate.backup
 
@@ -23,3 +23,4 @@ config.env
 **/Dockerfile
 **/mongo-secrets.yaml
 **/docker-compose.yaml
+
