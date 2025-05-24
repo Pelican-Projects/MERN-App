@@ -1,0 +1,29 @@
+name: Deploy to GKE
+
+on:
+  workflow_run:
+    workflows: ["Build and Push Docker Images"]
+    types:
+      - completed
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up gcloud CLI
+        uses: google-github-actions/setup-gcloud@v2
+        with:
+          service_account_key: ${{ secrets.GCP_SA_KEY }}
+          project_id: mern-460722
+
+      - name: Configure kubectl
+        run: |
+          gcloud container clusters get-credentials mern-cluster --region=europe-west2
+
+      - name: Deploy to Kubernetes
+        run: |
+          kubectl apply -f k8s/
+

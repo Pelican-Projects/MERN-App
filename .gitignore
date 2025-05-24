@@ -1,0 +1,25 @@
+# Ignore environment variables
+.env
+
+# Ignore Ansible secrets/vars if needed
+ansible/vars/gke-vars.yml
+
+# Ignore Terraform state files
+terraform/.terraform/
+terraform/terraform.tfstate
+terraform/terraform.tfstate.backup
+
+# Ignore node_modules if frontend/backend use them locally
+frontend/node_modules/
+backend/node_modules/
+
+node_modules/
+config.env
+config.env
+
+# Ignore Docker-related cache
+.dockerignore
+
+**/Dockerfile
+**/mongo-secrets.yaml
+**/docker-compose.yaml

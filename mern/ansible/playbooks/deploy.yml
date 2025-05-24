@@ -1,0 +1,11 @@
+- name: Deploy MERN app on GKE
+  hosts: localhost
+  vars_files:
+    - ../vars/gke-vars.yml
+  tasks:
+    - name: Set kubectl context
+      command: gcloud container clusters get-credentials mern-cluster --region={{ region }} --project={{ project_id }}
+
+    - name: Apply Kubernetes configurations
+      command: kubectl apply -f ../../kubernetes/
+
