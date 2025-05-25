@@ -17,6 +17,9 @@ node_modules/
 config.env
 config.env
 
+# google cloud file
+google-cloud-sdk*
+
 # Ignore Docker-related cache
 .dockerignore
 
