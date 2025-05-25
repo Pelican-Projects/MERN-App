@@ -30,9 +30,12 @@ resource "google_container_cluster" "primary" {
   name     = "mern-cluster"
   location = var.region
 
+  deletion_protection = false
+
   node_config {
     machine_type = "e2-small"
+    disk_size_gb = 25
   }
 
-  initial_node_count = 2
+  initial_node_count = 1
 }
