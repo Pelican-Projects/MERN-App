@@ -26,3 +26,4 @@ google-cloud-sdk*
 **/mongo-secrets.yaml
 **/docker-compose.yaml
 
+mern/terraform/terraform.tfstate*

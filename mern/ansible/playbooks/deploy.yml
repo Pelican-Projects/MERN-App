@@ -1,5 +1,6 @@
+---
 - name: Deploy MERN app on GKE
-  hosts: localhost
+  hosts: localhost #change to the ip address of your remote VM
   vars_files:
     - ../vars/gke-vars.yml
   tasks:
