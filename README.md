@@ -1,4 +1,4 @@
-# MERN Stack Application with Kubernetes, Terraform, and Ansible
+# MERN Stack Application with Kubernetes, Terraform, and Ansible.
 
 This project is a simple MERN stack application, and this project is based on [https://github.com/iam-veeramalla/MERN-docker-compose]
   
