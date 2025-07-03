@@ -36,6 +36,8 @@ jobs:
           || gcloud container clusters create mern-cluster \
                --region=europe-west2 \
                --num-nodes=1 \
+               --disk-type=pd-standard \
+               --disk-size=50 \
                --enable-ip-alias
 
       # STEP 3: Configure kubeconfig with GKE credentials
