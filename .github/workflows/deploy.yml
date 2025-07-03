@@ -25,11 +25,11 @@ jobs:
           project_id: ${{ secrets.GCP_PROJECT_ID }}
           export_default_credentials: true
 
-      # debug check
+      # STEP 3: debug check
       - name: Who am I (debug)
         run: gcloud auth list
 
-      # Create GKE Cluster
+      # STEP 4: Create GKE Cluster
       - name: Create GKE Cluster
         run: |
           gcloud container clusters describe mern-cluster --region=europe-west2 \
@@ -40,13 +40,18 @@ jobs:
                --disk-size=50 \
                --enable-ip-alias
 
-      # STEP 3: Configure kubeconfig with GKE credentials
+      # STEP 5: Configure kubeconfig with GKE credentials
       - name: Configure kubectl with GKE credentials
         run: |
           gcloud container clusters get-credentials mern-cluster \
             --region=europe-west2 \
             --project=${{ secrets.GCP_PROJECT_ID }}
+      
+      # STEP 6: INSTALL GKE auth plugin
+      - name: Install GKE Auth Plugin
+        run: |
+          gcloud components install gke-gcloud-auth-plugin -q
 
-      # STEP 4: Deploy to cluster
+      # STEP 7: Deploy to cluster
       - name: Deploy to Kubernetes
         run: kubectl apply -f mern/kubernetes/
