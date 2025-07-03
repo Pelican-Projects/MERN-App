@@ -12,22 +12,30 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      # STEP 1: Authenticate with service account key
+      - name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@v2
+        with:
+          credentials_json: '${{ secrets.GCP_SA_KEY }}'
+
+      # STEP 2: Setup gcloud CLI after auth
       - name: Set up gcloud CLI
         uses: google-github-actions/setup-gcloud@v2
         with:
-          service_account_key: ${{ secrets.GCP_SA_KEY }}
           project_id: ${{ secrets.GCP_PROJECT_ID }}
-          export_default_credentials: true 
+          export_default_credentials: true
 
+      #  Optional debug check
       - name: Who am I (debug)
-        run: |
-          gcloud auth list
+        run: gcloud auth list
 
+      # STEP 3: Configure kubeconfig with GKE credentials
       - name: Configure kubectl with GKE credentials
         run: |
-          gcloud container clusters get-credentials mern-cluster --region=europe-west2 --project=${{ secrets.GCP_PROJECT_ID }}
+          gcloud container clusters get-credentials mern-cluster \
+            --region=europe-west2 \
+            --project=${{ secrets.GCP_PROJECT_ID }}
 
+      # STEP 4: Deploy to cluster
       - name: Deploy to Kubernetes
-        run: |
-          kubectl apply -f mern/kubernetes/
-
+        run: kubectl apply -f mern/kubernetes/
