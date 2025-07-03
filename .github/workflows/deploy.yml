@@ -25,9 +25,18 @@ jobs:
           project_id: ${{ secrets.GCP_PROJECT_ID }}
           export_default_credentials: true
 
-      #  Optional debug check
+      # debug check
       - name: Who am I (debug)
         run: gcloud auth list
+
+      # Create GKE Cluster
+      - name: Create GKE Cluster
+        run: |
+          gcloud container clusters describe mern-cluster --region=europe-west2 \
+          || gcloud container clusters create mern-cluster \
+               --region=europe-west2 \
+               --num-nodes=1 \
+               --enable-ip-alias
 
       # STEP 3: Configure kubeconfig with GKE credentials
       - name: Configure kubectl with GKE credentials
